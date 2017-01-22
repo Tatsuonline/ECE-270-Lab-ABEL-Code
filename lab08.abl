@@ -1,0 +1,61 @@
+MODULE Lab08
+
+TITLE 'Introduction to Sequential Circuits'
+
+"STEP 5"
+
+DECLARATIONS
+
+" Bounceless switch
+
+CLKIN pin 1;
+
+CS = CLKIN;
+
+CM = !CLKIN;
+
+D pin 8;
+
+SM = D;
+
+RM = !D;
+
+!NC, !NO pin 9..10;
+
+QS_N, QS, QM_N, QM pin 14..17 istype 'com';
+
+QFF pin 18 istype 'reg';
+
+BQ pin 23 istype 'com';
+
+SS = QM;
+
+RS = QM_N;
+
+EQUATIONS
+
+" Bounceless switch
+
+BQ = NO # !NC&BQ;
+
+" Master SR latch
+
+QM = !(QM_N & !(SM & CM));
+
+QM_N = !(QM & !(RM & CM));
+
+" Slave SR latch
+
+QS = !(QS_N & !(SS & CS));
+
+QS_N = !(QS & !(RS & CS));
+
+QFF := D;
+
+QFF.CLK = CLKIN;
+
+
+END
+
+
+
